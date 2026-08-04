@@ -1,0 +1,134 @@
+:root {
+  --purple-light: #e6e6fa;
+  --purple-main: #b39ddb;
+  --purple-dark: #7e57c2;
+  --purple-soft-bg: #f3e5f5;
+  --text-color: #4a148c;
+  --card-bg: #ffffff;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, var(--purple-light), var(--purple-soft-bg));
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.quiz-container {
+  background-color: var(--card-bg);
+  border-radius: 24px;
+  box-shadow: 0 10px 25px rgba(126, 87, 194, 0.15);
+  width: 100%;
+  max-width: 550px;
+  padding: 30px;
+  text-align: center;
+  border: 3px solid var(--purple-main);
+}
+
+.header-badge {
+  background-color: var(--purple-light);
+  color: var(--purple-dark);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-size: 1.6rem;
+  margin-top: 0;
+  color: var(--purple-dark);
+}
+
+h2 {
+  color: var(--purple-dark);
+  margin-top: 10px;
+}
+
+.story-text {
+  background-color: var(--purple-soft-bg);
+  border-left: 4px solid var(--purple-dark);
+  padding: 15px;
+  border-radius: 12px;
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.options-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.btn-option {
+  background-color: #f8f5fc;
+  border: 2px solid var(--purple-main);
+  color: var(--text-color);
+  padding: 14px 20px;
+  border-radius: 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.btn-option:hover {
+  background-color: var(--purple-main);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(179, 157, 219, 0.4);
+}
+
+.progress-bar {
+  height: 8px;
+  background-color: var(--purple-light);
+  border-radius: 10px;
+  margin-top: 25px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--purple-dark);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+#result-text {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+.restart-btn {
+  background-color: var(--purple-dark);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.restart-btn:hover {
+  background-color: #5e35b1;
+}
+
+.hide {
+  display: none;
+}
