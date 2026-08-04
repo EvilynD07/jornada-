@@ -143,4 +143,5 @@ function restartQuiz() {
   loadQuestion();
 }
 
-loadQuestion();
+// Garante o carregamento correto ao abrir
+window.onload = loadQuestion;
