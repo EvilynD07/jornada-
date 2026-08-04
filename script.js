@@ -97,7 +97,8 @@ function loadQuestion() {
   q.options.forEach(opt => {
     const btn = document.createElement('button');
     btn.className = 'btn-option';
-    btn.innerText = opt.text;
+    // Adiciona o ícone angelical nos botões de seleção
+    btn.innerText = `🗡️ ${opt.text}`;
     btn.onclick = () => selectOption(opt.score);
     optionsContainer.appendChild(btn);
   });
@@ -123,9 +124,15 @@ function showResults() {
 
   const resultText = document.getElementById('result-text');
   if (score >= 8) {
-    resultText.innerHTML = `🌟 <b>Anjo Fiel!</b> (Pontuação: ${score}/10)<br><br>Você reviveu a jornada do Castiel perfeitamente! Você compreende o valor da amizade, do livre-arbítrio e o carinho gigante que ele tem pela família Winchester. O sobretudo bege é oficialmente seu! 🧥✨`;
+    resultText.innerHTML = `
+      🪶 <b>Graça Divina Restaurada!</b> (Pontuação: ${score}/10)<br><br>
+      Você provou ser um anjo fiel e um verdadeiro guerreiro de Deus! Conhece a trajetória do Castiel como ninguém, desde a perdição do Inferno até o vínculo inquebrável com os Winchesters. O sobretudo bege e as asas de sombra são oficialmente seus! 🧥✨
+    `;
   } else {
-    resultText.innerHTML = `☁️ <b>Anjo em Aprendizado!</b> (Pontuação: ${score}/10)<br><br>Você acompanhou a história do Castiel, mas acabou caindo em umas pegadinhas ao longo do caminho. Que tal tentar de novo para deixar o nosso anjinho orgulhoso? 😇`;
+    resultText.innerHTML = `
+      🔥 <b>Anjo Caído em Aprendizado!</b> (Pontuação: ${score}/10)<br><br>
+      Sua graça angelical está um pouco fraca... Você cometeu alguns deslizes dignos de um anjo que ainda não entende muito bem os humanos. Que tal tentar novamente e honrar a jornada do Cas? 😇
+    `;
   }
 }
 
@@ -137,5 +144,5 @@ function restartQuiz() {
   loadQuestion();
 }
 
-// Inicializa o quiz ao carregar
+// Inicializa o quiz ao carregar a página
 loadQuestion();
