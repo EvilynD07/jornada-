@@ -1,16 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Montserrat:wght@400;600&display=swap');
+
 :root {
-  --purple-light: #e6e6fa;
-  --purple-main: #b39ddb;
-  --purple-dark: #7e57c2;
-  --purple-soft-bg: #f3e5f5;
-  --text-color: #4a148c;
-  --card-bg: #ffffff;
+  --trench-coat: #c2a682; /* Bege icônico do sobretudo do Castiel */
+  --angel-blue: #00d2ff;  /* Azul neon da graça angelical */
+  --dark-bg: #0b0c10;     /* Fundo escuro mistério */
+  --card-bg: #1f2833;     /* Fundo do card em tom escuro metálico */
+  --text-main: #e0e0e0;   /* Texto legível e claro */
+  --border-gold: #c2a682; /* Detalhes em dourado/bege */
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, var(--purple-light), var(--purple-soft-bg));
-  color: var(--text-color);
+  font-family: 'Montserrat', sans-serif;
+  background: radial-gradient(circle, #1a237e 0%, #0b0c10 80%);
+  color: var(--text-main);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,88 +24,114 @@ body {
 
 .quiz-container {
   background-color: var(--card-bg);
-  border-radius: 24px;
-  box-shadow: 0 10px 25px rgba(126, 87, 194, 0.15);
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0, 210, 255, 0.25), inset 0 0 15px rgba(0, 0, 0, 0.8);
   width: 100%;
   max-width: 550px;
-  padding: 30px;
+  padding: 35px;
   text-align: center;
-  border: 3px solid var(--purple-main);
+  border: 1px solid rgba(194, 166, 130, 0.4);
+  position: relative;
+}
+
+/* Efeito de asas/brilho no fundo do container */
+.quiz-container::before {
+  content: "🪶 SUPERNATURAL 🪶";
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 5px;
+  color: var(--trench-coat);
+  display: block;
+  margin-bottom: 15px;
+  text-shadow: 0 0 8px rgba(194, 166, 130, 0.6);
 }
 
 .header-badge {
-  background-color: var(--purple-light);
-  color: var(--purple-dark);
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: bold;
+  background-color: rgba(0, 210, 255, 0.1);
+  color: var(--angel-blue);
+  border: 1px solid var(--angel-blue);
+  padding: 6px 18px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   display: inline-block;
   margin-bottom: 15px;
 }
 
+/* Título estilo Supernatural */
 h1 {
-  font-size: 1.6rem;
+  font-family: 'Cinzel', serif;
+  font-size: 1.8rem;
+  font-weight: 900;
   margin-top: 0;
-  color: var(--purple-dark);
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px var(--angel-blue);
 }
 
 h2 {
-  color: var(--purple-dark);
+  font-family: 'Cinzel', serif;
+  color: var(--trench-coat);
   margin-top: 10px;
+  letter-spacing: 1px;
 }
 
 .story-text {
-  background-color: var(--purple-soft-bg);
-  border-left: 4px solid var(--purple-dark);
-  padding: 15px;
-  border-radius: 12px;
-  font-style: italic;
+  background-color: rgba(11, 12, 16, 0.6);
+  border-left: 4px solid var(--angel-blue);
+  padding: 18px;
+  border-radius: 4px;
   font-size: 0.95rem;
-  line-height: 1.5;
-  margin-bottom: 20px;
+  line-height: 1.6;
+  margin-bottom: 25px;
   text-align: left;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
 }
 
 .options-grid {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .btn-option {
-  background-color: #f8f5fc;
-  border: 2px solid var(--purple-main);
-  color: var(--text-color);
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(194, 166, 130, 0.4);
+  color: var(--text-main);
   padding: 14px 20px;
-  border-radius: 16px;
+  border-radius: 6px;
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   text-align: left;
 }
 
 .btn-option:hover {
-  background-color: var(--purple-main);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(179, 157, 219, 0.4);
+  background-color: rgba(0, 210, 255, 0.15);
+  border-color: var(--angel-blue);
+  color: #ffffff;
+  transform: translateX(4px);
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
 }
 
 .progress-bar {
-  height: 8px;
-  background-color: var(--purple-light);
-  border-radius: 10px;
-  margin-top: 25px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-top: 30px;
   overflow: hidden;
 }
 
 .progress-fill {
   height: 100%;
-  background-color: var(--purple-dark);
+  background: linear-gradient(90deg, var(--trench-coat), var(--angel-blue));
   width: 0%;
-  transition: width 0.3s ease;
+  transition: width 0.4s ease;
+  box-shadow: 0 0 8px var(--angel-blue);
 }
 
 #result-text {
@@ -113,20 +141,24 @@ h2 {
 }
 
 .restart-btn {
-  background-color: var(--purple-dark);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 20px;
-  font-size: 1rem;
+  background-color: transparent;
+  color: var(--angel-blue);
+  border: 2px solid var(--angel-blue);
+  padding: 12px 28px;
+  border-radius: 4px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
   font-weight: bold;
+  letter-spacing: 1px;
   cursor: pointer;
   margin-top: 15px;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 .restart-btn:hover {
-  background-color: #5e35b1;
+  background-color: var(--angel-blue);
+  color: #000;
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.8);
 }
 
 .hide {
