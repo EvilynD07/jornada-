@@ -1,195 +1,115 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;800;900&family=Special+Elite&display=swap');
+// Dados dos Capítulos do Quiz
+const chapters = [
+  {
+    chapterText: "CAPÍTULO 1 DE 3",
+    story: "Eu sou aquele que o resgatou da perdição. Qual foi o motivo do primeiro encontro entre Castiel e Dean Winchester no celeiro?",
+    options: [
+      "Castiel precisava avisar sobre o Apocalipse.",
+      "Ele foi resgatar Dean do Inferno por ordem divina.",
+      "Castiel queria caçar um demônio de olhos amarelos com Dean.",
+      "Ele estava fugindo de outros anjos."
+    ],
+    correct: 1
+  },
+  {
+    chapterText: "CAPÍTULO 2 DE 3",
+    story: "Para proteger os irmãos Winchester e impedir a abertura do Apocalipse, o que Castiel usa para trair a vontade do Céu?",
+    options: [
+      "Uma lâmina angelical contra Zacarias.",
+      "O Livro dos Condenados.",
+      "Símbolos de sangue banidores de anjos.",
+      "A Graça de Gabriel."
+    ],
+    correct: 2
+  },
+  {
+    chapterText: "CAPÍTULO 3 DE 3",
+    story: "Quando Castiel se torna temporariamente o 'Novo Deus', qual entidade sombria é absorvida junto com as almas do Purgatório?",
+    options: [
+      "Os Leviatãs.",
+      "Os Cavaleiros do Apocalipse.",
+      "A Escuridão (Amara).",
+      "Lúcifer."
+    ],
+    correct: 0
+  }
+];
 
-:root {
-  --angel-blue: #00d2ff;
-  --angel-glow: rgba(0, 210, 255, 0.6);
-  --trench-coat: #c8a063;
-  --dark-bg: #050608;
-  --card-bg: rgba(15, 18, 24, 0.94);
-  --text-light: #e0e6ed;
+let currentChapter = 0;
+let score = 0;
+
+// Elementos do DOM
+const quizScreen = document.getElementById('quiz-screen');
+const resultScreen = document.getElementById('result-screen');
+const stepBadge = document.getElementById('step-badge');
+const storyDescription = document.getElementById('story-description');
+const optionsContainer = document.getElementById('options-container');
+const progressFill = document.getElementById('progress-fill');
+const resultText = document.getElementById('result-text');
+
+// Função para carregar o capítulo atual
+function loadChapter() {
+  const currentData = chapters[currentChapter];
+
+  // Atualiza os textos
+  stepBadge.textContent = currentData.chapterText;
+  storyDescription.textContent = currentData.story;
+
+  // Atualiza a barra de progresso
+  const progressPercent = ((currentChapter) / chapters.length) * 100;
+  progressFill.style.width = `${progressPercent}%`;
+
+  // Limpa as opções antigas
+  optionsContainer.innerHTML = '';
+
+  // Cria os novos botões
+  currentData.options.forEach((optionText, index) => {
+    const button = document.createElement('button');
+    button.classList.add('btn-option');
+    button.textContent = `${index + 1}. ${optionText}`;
+    button.onclick = () => selectOption(index);
+    optionsContainer.appendChild(button);
+  });
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+// Função ao selecionar uma resposta
+function selectOption(index) {
+  if (index === chapters[currentChapter].correct) {
+    score++;
+  }
+
+  currentChapter++;
+
+  if (currentChapter < chapters.length) {
+    loadChapter();
+  } else {
+    showResult();
+  }
 }
 
-body {
-  font-family: 'Special Elite', cursive, monospace;
-  background-color: var(--dark-bg);
-  background-image: 
-    radial-gradient(circle at 50% 30%, rgba(0, 100, 180, 0.25) 0%, transparent 60%),
-    radial-gradient(circle at 50% 100%, #1a0800 0%, var(--dark-bg) 70%);
-  color: var(--text-light);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  overflow-x: hidden;
-  position: relative;
+// Função para exibir a tela final
+function showResult() {
+  quizScreen.classList.add('hide');
+  resultScreen.classList.remove('hide');
+  progressFill.style.width = '100%';
+
+  if (score === chapters.length) {
+    resultText.innerHTML = `<strong>Impressionante!</strong> Você acertou ${score} de ${chapters.length} escolhas. Sua ligação com o Céu e a Caçada é inabalável. Castiel se orgulharia.`;
+  } else if (score > 0) {
+    resultText.innerHTML = `Você acertou ${score} de ${chapters.length} escolhas. A jornada teve percalços, mas você ainda tem a graça angelical ao seu lado.`;
+  } else {
+    resultText.innerHTML = `Você acertou ${score} de ${chapters.length} escolhas. Parece que as ilusões dos demônios confundiram seus passos. Tente novamente!`;
+  }
 }
 
-/* Sombra das Asas do Castiel */
-.angel-wings-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 700px;
-  height: 500px;
-  background: radial-gradient(ellipse at center, rgba(0, 210, 255, 0.12) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(40px);
-  pointer-events: none;
-  z-index: 0;
+// Função para reiniciar o quiz
+function restartQuiz() {
+  currentChapter = 0;
+  score = 0;
+  resultScreen.classList.add('hide');
+  quizScreen.classList.remove('hide');
+  loadChapter();
 }
 
-.quiz-container {
-  position: relative;
-  z-index: 1;
-  background: var(--card-bg);
-  border: 2px solid var(--trench-coat);
-  box-shadow: 0 0 35px rgba(0, 0, 0, 0.9), 0 0 15px var(--angel-glow), inset 0 0 20px rgba(0,0,0,0.8);
-  border-radius: 4px;
-  width: 100%;
-  max-width: 600px;
-  padding: 35px 25px;
-  text-align: center;
-}
-
-.anti-possession-symbol {
-  font-size: 2.2rem;
-  color: var(--trench-coat);
-  text-shadow: 0 0 10px var(--trench-coat);
-  margin-bottom: 5px;
-  font-family: serif;
-}
-
-.header-tag {
-  margin-bottom: 10px;
-}
-
-#step-badge {
-  background: rgba(0, 210, 255, 0.1);
-  border: 1px solid var(--angel-blue);
-  color: var(--angel-blue);
-  padding: 4px 14px;
-  font-size: 0.75rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  box-shadow: 0 0 8px var(--angel-glow);
-}
-
-h1 {
-  font-family: 'Cinzel Decorative', 'Cinzel', serif;
-  font-size: 2.2rem;
-  color: #ffffff;
-  letter-spacing: 4px;
-  text-shadow: 0 0 10px #fff, 0 0 20px var(--angel-blue);
-  margin-top: 10px;
-}
-
-.sub-title {
-  font-family: 'Cinzel', serif;
-  color: var(--trench-coat);
-  font-size: 0.85rem;
-  letter-spacing: 3px;
-  margin-bottom: 20px;
-}
-
-.story-text {
-  background: rgba(0, 0, 0, 0.6);
-  border-left: 3px solid var(--trench-coat);
-  border-right: 1px solid rgba(200, 160, 99, 0.2);
-  padding: 18px;
-  text-align: left;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #d1d5db;
-  margin-bottom: 25px;
-  box-shadow: inset 0 0 10px #000;
-}
-
-.options-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.btn-option {
-  background: rgba(10, 14, 20, 0.8);
-  border: 1px solid var(--trench-coat);
-  color: #ffffff;
-  padding: 16px 20px;
-  font-family: 'Special Elite', monospace;
-  font-size: 0.95rem;
-  text-align: left;
-  cursor: pointer;
-  transition: all 0.25s ease-in-out;
-}
-
-.btn-option:hover {
-  background: rgba(0, 210, 255, 0.15);
-  border-color: var(--angel-blue);
-  color: var(--angel-blue);
-  box-shadow: 0 0 15px var(--angel-glow);
-  transform: scale(1.01);
-}
-
-.progress-container {
-  margin-top: 30px;
-}
-
-.progress-bar {
-  height: 6px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(200, 160, 99, 0.3);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--trench-coat), var(--angel-blue));
-  box-shadow: 0 0 10px var(--angel-blue);
-  width: 0%;
-  transition: width 0.4s ease;
-}
-
-.restart-btn {
-  background: transparent;
-  border: 2px solid var(--angel-blue);
-  color: var(--angel-blue);
-  padding: 14px 28px;
-  font-family: 'Cinzel', serif;
-  font-weight: bold;
-  font-size: 0.95rem;
-  letter-spacing: 2px;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: all 0.3s ease;
-}
-
-.restart-btn:hover {
-  background: var(--angel-blue);
-  color: #000;
-  box-shadow: 0 0 25px var(--angel-blue);
-}
-
-.symbol-header {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-h2 {
-  font-family: 'Cinzel', serif;
-  color: var(--trench-coat);
-  letter-spacing: 2px;
-  margin-bottom: 15px;
-}
-
-.hide {
-  display: none !important;
-}
+// Inicializa a primeira pergunta ao carregar a página
+window.onload = loadChapter;
