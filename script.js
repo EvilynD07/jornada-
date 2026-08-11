@@ -1,4 +1,4 @@
-// Dados dos Capítulos do Quiz
+// Dados dos Capítulos
 const chapters = [
   {
     chapterText: "CAPÍTULO 1 DE 3",
@@ -38,41 +38,34 @@ const chapters = [
 let currentChapter = 0;
 let score = 0;
 
-// Elementos do DOM
-const quizScreen = document.getElementById('quiz-screen');
-const resultScreen = document.getElementById('result-screen');
-const stepBadge = document.getElementById('step-badge');
-const storyDescription = document.getElementById('story-description');
-const optionsContainer = document.getElementById('options-container');
-const progressFill = document.getElementById('progress-fill');
-const resultText = document.getElementById('result-text');
-
-// Função para carregar o capítulo atual
 function loadChapter() {
   const currentData = chapters[currentChapter];
 
-  // Atualiza os textos
-  stepBadge.textContent = currentData.chapterText;
-  storyDescription.textContent = currentData.story;
+  const stepBadge = document.getElementById('step-badge');
+  const storyDescription = document.getElementById('story-description');
+  const optionsContainer = document.getElementById('options-container');
+  const progressFill = document.getElementById('progress-fill');
 
-  // Atualiza a barra de progresso
-  const progressPercent = ((currentChapter) / chapters.length) * 100;
-  progressFill.style.width = `${progressPercent}%`;
+  if (stepBadge) stepBadge.textContent = currentData.chapterText;
+  if (storyDescription) storyDescription.textContent = currentData.story;
 
-  // Limpa as opções antigas
-  optionsContainer.innerHTML = '';
+  if (progressFill) {
+    const progressPercent = (currentChapter / chapters.length) * 100;
+    progressFill.style.width = `${progressPercent}%`;
+  }
 
-  // Cria os novos botões
-  currentData.options.forEach((optionText, index) => {
-    const button = document.createElement('button');
-    button.classList.add('btn-option');
-    button.textContent = `${index + 1}. ${optionText}`;
-    button.onclick = () => selectOption(index);
-    optionsContainer.appendChild(button);
-  });
+  if (optionsContainer) {
+    optionsContainer.innerHTML = '';
+    currentData.options.forEach((optionText, index) => {
+      const button = document.createElement('button');
+      button.classList.add('btn-option');
+      button.textContent = `${index + 1}. ${optionText}`;
+      button.onclick = () => selectOption(index);
+      optionsContainer.appendChild(button);
+    });
+  }
 }
 
-// Função ao selecionar uma resposta
 function selectOption(index) {
   if (index === chapters[currentChapter].correct) {
     score++;
@@ -87,29 +80,40 @@ function selectOption(index) {
   }
 }
 
-// Função para exibir a tela final
 function showResult() {
-  quizScreen.classList.add('hide');
-  resultScreen.classList.remove('hide');
-  progressFill.style.width = '100%';
+  const quizScreen = document.getElementById('quiz-screen');
+  const resultScreen = document.getElementById('result-screen');
+  const progressFill = document.getElementById('progress-fill');
+  const resultText = document.getElementById('result-text');
 
-  if (score === chapters.length) {
-    resultText.innerHTML = `<strong>Impressionante!</strong> Você acertou ${score} de ${chapters.length} escolhas. Sua ligação com o Céu e a Caçada é inabalável. Castiel se orgulharia.`;
-  } else if (score > 0) {
-    resultText.innerHTML = `Você acertou ${score} de ${chapters.length} escolhas. A jornada teve percalços, mas você ainda tem a graça angelical ao seu lado.`;
-  } else {
-    resultText.innerHTML = `Você acertou ${score} de ${chapters.length} escolhas. Parece que as ilusões dos demônios confundiram seus passos. Tente novamente!`;
+  if (quizScreen) quizScreen.classList.add('hide');
+  if (resultScreen) resultScreen.classList.remove('hide');
+  if (progressFill) progressFill.style.width = '100%';
+
+  if (resultText) {
+    if (score === chapters.length) {
+      resultText.innerHTML = `<strong>Impressionante!</strong> Você acertou ${score} de ${chapters.length} escolhas. Sua ligação com o Céu e a Caçada é inabalável.`;
+    } else {
+      resultText.innerHTML = `Você acertou ${score} de ${chapters.length} escolhas. A jornada teve percalços, mas você ainda tem a graça angelical ao seu lado.`;
+    }
   }
 }
 
-// Função para reiniciar o quiz
 function restartQuiz() {
   currentChapter = 0;
   score = 0;
-  resultScreen.classList.add('hide');
-  quizScreen.classList.remove('hide');
+  const quizScreen = document.getElementById('quiz-screen');
+  const resultScreen = document.getElementById('result-screen');
+  
+  if (resultScreen) resultScreen.classList.add('hide');
+  if (quizScreen) quizScreen.classList.remove('hide');
+  
   loadChapter();
 }
 
-// Inicializa a primeira pergunta ao carregar a página
-window.onload = loadChapter;
+// Inicia automaticamente quando o script carrega
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadChapter);
+} else {
+  loadChapter();
+}
