@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;800;900&family=Special+Elite&display=swap');
+
 :root {
   --angel-blue: #00d2ff;
   --angel-glow: rgba(0, 210, 255, 0.6);
@@ -62,6 +64,7 @@ body {
   color: var(--trench-coat);
   text-shadow: 0 0 10px var(--trench-coat);
   margin-bottom: 5px;
+  font-family: serif;
 }
 
 .header-tag {
